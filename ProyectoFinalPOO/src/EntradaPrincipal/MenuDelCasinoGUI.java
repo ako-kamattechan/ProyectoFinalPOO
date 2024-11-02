@@ -2,11 +2,8 @@ package EntradaPrincipal;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
-import javax.swing.border.Border;
 
-import java.io.*;
 public class MenuDelCasinoGUI{
     final private Font mainFont=new Font("Garamond", Font.ITALIC,50);
     final private Font FontChico=new Font("Garamond", Font.ITALIC,35);
@@ -18,6 +15,7 @@ public class MenuDelCasinoGUI{
         frame.setVisible(true);
     }
     public void EjecuciónMenuDeInicio(){
+        //Boolean FrameRegistroActivo=false;
         JPanel mainPanel=utilerías.CrearPanel(231, 227, 210);
         JPanel PanelBienvenida=utilerías.CrearPanel(255, 255, 255);
         JPanel PanelPregunta=utilerías.CrearPanel(255, 251, 217,10,10,10,10);
@@ -34,14 +32,56 @@ public class MenuDelCasinoGUI{
         BotonSi.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JPanel IngresoDeDatos=utilerías.CrearPanel(92, 138, 129);
+                JLabel Nombre=new JLabel("Ingrese nombre de usuario:");
+                Nombre.setFont(FontChico);
+                JTextField TFNombre=new JTextField();
+                TFNombre.setFont(FontChico);
 
+                JLabel Contraseña=new JLabel("Ingrese su contraseña:");
+                Contraseña.setFont(FontChico);
+                JTextField TFContraseña=new JTextField();
+                TFContraseña.setFont(FontChico);
+
+                IngresoDeDatos.setLayout(new GridLayout(4,1));
+                IngresoDeDatos.add(Nombre);
+                IngresoDeDatos.add(TFNombre);
+                IngresoDeDatos.add(Contraseña);
+                IngresoDeDatos.add(TFContraseña);
+                FrameParaIniciarSesion(IngresoDeDatos);
             }
         });
         JButton BotonNo=utilerías.CrearBotones("No", fontBotones);
         BotonNo.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                JPanel IngresoDeDatos=utilerías.CrearPanel(92, 138, 129);
+                JLabel Pregunta=new JLabel("¿Desea registrarse para guardar sus datos?");
+                Pregunta.setFont(FontChico);
                 
+                JButton BotonRegistro1=utilerías.CrearBotones("Si", FontChico);
+                BotonRegistro1.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //Aquí va un método para que ingrese sus datos personales y se guarden en objetos de tipo Cliente :/
+                    }
+                    
+                });
+                JButton BotonRegistro2=utilerías.CrearBotones("No", FontChico);
+                BotonRegistro2.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        //Aquí se tiene que agregar algo para que el programa de salida hacia la zona de juegos
+                        
+                    }
+                    
+                });
+                IngresoDeDatos.setLayout(new GridLayout(3,1));
+                IngresoDeDatos.add(Pregunta);
+                IngresoDeDatos.add(BotonSi);
+                IngresoDeDatos.add(BotonNo);
+                FrameParaRegistrarUsuarios(IngresoDeDatos);
             }
         });
         JButton BotonBlack=utilerías.CrearBotones("Black Jack", FontChico);
@@ -94,15 +134,17 @@ public class MenuDelCasinoGUI{
         mainPanel.add(PanelJuegos, BorderLayout.CENTER);
         FramePrincipal(mainPanel);
     }
+    public void FrameParaIniciarSesion(JPanel panel){
+        JFrame frame=new JFrame("Inicio de sesión");
+        frame.setSize(600,560);
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+    public void FrameParaRegistrarUsuarios(JPanel panel){
+        JFrame frame=new JFrame("Registro");
+        frame.setSize(600,560);
+        frame.add(panel);
+        frame.setVisible(true);
+    }
 }
 //IMLogo.setImageObserver(LBlogo);--idea para animación de ruleta
-//JPanel panelImagen=utilerías.CrearPanel(231, 227, 210);
-//panelImagen.setLayout(null);
-//panelImagen.setSize(400,400);  
-//panelImagen.add(LBlogo);
-//mainPanel.add(panelImagen, BorderLayout.CENTER);
-//JPanel PanelPregunta=utilerías.CrearPanel(231, 227, 210);
-//PanelBienvenida.setSize(400,400);
-//PanelBienvenida.add(PreguntaCuenta,BorderLayout.EAST);
-//mainPanel.add(PanelPregunta, BorderLayout.NORTH);
-
