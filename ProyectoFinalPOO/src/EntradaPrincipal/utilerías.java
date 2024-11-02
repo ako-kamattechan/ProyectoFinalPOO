@@ -2,7 +2,7 @@ package EntradaPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
-import javax.swing.*;
+//import javax.swing.*;
 import java.io.*;
 public class utilerías {
     public static JPanel CrearPanel(int colorRojo,int colorGreen, int colorAzul){
