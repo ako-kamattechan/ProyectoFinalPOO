@@ -23,7 +23,7 @@ public class utilerías {
         File file=new File(Path);
         ImageIcon ImagenOriginal=new ImageIcon(file.getAbsolutePath());
 
-        Image Logo=ImagenOriginal.getImage().getScaledInstance(width, height, Image.SCALE_DEFAULT);
+        Image Logo=ImagenOriginal.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
         ImageIcon LogoEscalado=new ImageIcon(Logo);
 
         JLabel imagen=new JLabel();
@@ -31,6 +31,11 @@ public class utilerías {
         imagen.setBounds(x,y,width,height);
         
         return imagen;
+    }
+    public static JButton CrearBotones(String Contenido, Font font){
+        JButton boton=new JButton(Contenido);
+        boton.setFont(font);
+        return boton;
     }
 }
 
