@@ -16,12 +16,12 @@ public class MenuDelCasinoGUI{
         JPanel panelImagen=utilerías.CrearPanel(231, 227, 210);
         panelImagen.setLayout(null);
         panelImagen.setSize(200,400);
-        JLabel LBlogo=utilerías.AgregarImagen(300, 200, 25, 0, "src/tipografias/Logo3.jpg");
+        JLabel LBlogo=utilerías.AgregarImagen(300, 200, 25, 0, "ProyectoFinalPOO/src/tipografias/Logo3.jpg");
         panelImagen.add(LBlogo);
 
         mainPanel.add(panelImagen, BorderLayout.CENTER);
         FramePrincipal(mainPanel);
     }
-    
+
 }
 //IMLogo.setImageObserver(LBlogo);--idea para animación de ruleta
