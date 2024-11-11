@@ -37,5 +37,34 @@ public class utilerías {
         boton.setFont(font);
         return boton;
     }
+    public void FrameParaRegistrarUsuarios(JPanel panel){
+        JFrame frame=new JFrame("Registro");
+        frame.setSize(600,560);
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+    public static JFrame FrameParaRegistrarUsuarios(JPanel panel, int x, int y){
+        JFrame frame=new JFrame("Registro");
+        frame.setSize(x,y);
+        frame.add(panel);
+        frame.setVisible(true);
+        return frame;
+    }public static JFrame FrameParaRegistrarUsuarios(int x, int y){
+        JFrame frame=new JFrame("Registro");
+        frame.setSize(x,y);
+        frame.setVisible(true);
+        return frame;
+    }
+    public static void FrameParaIniciarSesion(JPanel panel){
+        JFrame frame=new JFrame("Inicio de sesión");
+        frame.setSize(600,560);
+        frame.add(panel);
+        frame.setVisible(true);
+    }
+    public static JFrame CrearFrameGenerico(String nombre,int x, int y){
+        JFrame frame=new JFrame("Registro");
+        frame.setSize(x,y);
+        return frame;
+    }
 }
 

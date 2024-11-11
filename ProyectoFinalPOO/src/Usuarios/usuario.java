@@ -29,13 +29,6 @@ public class usuario implements Serializable {
         return Dinero;
     }
     //setters:
-    /*public void setfechaDeNacimiento(String Fecha){
-        if(Fecha.length()==10){
-        this.fechaDeNacimiento=Fecha;
-        }else if(Fecha.isBlank()||Fecha.length()<10){
-            System.out.println("Intente Otra vez");
-        }
-    }*/
     public void setnombre(String nombre){
         this.nombreDeusuario=nombre;
     }
