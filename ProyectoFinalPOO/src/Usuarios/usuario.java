@@ -6,6 +6,7 @@ public class usuario implements Serializable {
     private String correo;
     private String Contraseña;
     private double Dinero;
+    private Boolean InicioDeSesion=false;
     public usuario( String nombre, String correo, String Contraseña){
         this.nombreDeusuario=nombre;
         this.correo=correo;
@@ -16,6 +17,12 @@ public class usuario implements Serializable {
         return "usuario:"+nombreDeusuario+"\tcorreo:"+correo+"\tContraseña:"+Contraseña;
     }
     //Getters:
+    public Boolean getBool(){
+        return InicioDeSesion;
+    }
+    public void setInicioDesesión(Boolean booleano){
+        this.InicioDeSesion=booleano;
+    }
     public String getnombre(){
         return nombreDeusuario;
     }

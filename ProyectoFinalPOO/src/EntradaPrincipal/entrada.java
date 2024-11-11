@@ -11,7 +11,7 @@ public class entrada {
         List<usuario> ListaUsuarios=new ArrayList<>();
         ListaUsuarios=utileriasParaAgregarObjetos.PasarDatosALista(ListaUsuarios);
         MenuDelCasinoGUI menu=new MenuDelCasinoGUI();
-
-        menu.EjecuciónMenuDeInicio(ListaUsuarios,menu.getInicioDesesion());
+        menu.EjecuciónMenuDeInicioSinIniciarSesión(ListaUsuarios,menu);
+        //utileriasParaAgregarObjetos.ArchivoConUsuarios(ListaUsuarios);
     }
 }

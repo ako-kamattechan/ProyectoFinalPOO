@@ -8,7 +8,7 @@ import Usuarios.*;
 import java.util.List;
 
 public class BotonesMenu {
-    public static JButton BotonDeIniciarSesión(Font fontBotones,Font FontChico,List<usuario> listaDeusuarios, Boolean InicioDesesión){
+    public static JButton BotonDeIniciarSesión(Font fontBotones,Font FontChico,List<usuario> listaDeusuarios,usuario[] usuarioActual,JFrame FramePrincipal,MenuDelCasinoGUI menu){
         JButton BotonSi=utilerías.CrearBotones("si", fontBotones);
         BotonSi.addActionListener(new ActionListener() {
             @Override
@@ -32,21 +32,27 @@ public class BotonesMenu {
                 botonComprobaciónDeDatos.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //aquí va un método de la lógica para poder comprobar si ya tiene datos registrados o no
                             String Usuario=TFNombre.getText();
                             String Contraseña=TFContraseña.getText();
                             for(usuario Jugador: listaDeusuarios){
                                 if(Jugador.getnombre().equals(Usuario)&&Jugador.getContraseña().equals(Contraseña)){
                                     Exito.setText("Iniciaste Sesión");
+                                    usuarioActual[0]=Jugador;
+                                    usuarioActual[0].setInicioDesesión(true);
+
                                     Timer temporizadorDeDossegundos=new Timer(2000,new ActionListener() {
                                         @Override
                                         public void actionPerformed(ActionEvent e){
                                             frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
                                             frame.dispose();
+                                            FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                                            FramePrincipal.dispose();
+                                            menu.EjecuciónConInicioDeSesión(usuarioActual[0]);
                                         }
                                     } );
                                     temporizadorDeDossegundos.setRepeats(false);
                                     temporizadorDeDossegundos.start();
+
                                     break;
                                 }else{
                                     Exito.setText("No se logró iniciar sesión");
