@@ -47,7 +47,7 @@ public class BotonesMenu {
                                             frame.dispose();
                                             FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
                                             FramePrincipal.dispose();
-                                            menu.EjecuciónConInicioDeSesión(usuarioActual[0]);
+                                            menu.EjecuciónConInicioDeSesión(usuarioActual[0],menu,listaDeusuarios);
                                         }
                                     } );
                                     temporizadorDeDossegundos.setRepeats(false);

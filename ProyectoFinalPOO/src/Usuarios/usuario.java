@@ -13,8 +13,11 @@ public class usuario implements Serializable {
         this.Contraseña=Contraseña;
         this.Dinero=0;
     }
+    public void AgregarDinero(Double dinero){
+        this.Dinero=this.Dinero+dinero;
+    }
     public String toString(){
-        return "usuario:"+nombreDeusuario+"\tcorreo:"+correo+"\tContraseña:"+Contraseña;
+        return "usuario:"+nombreDeusuario+"\tcorreo:"+correo+"\tContraseña:"+Contraseña+"\tDinero: "+Dinero+"$";
     }
     //Getters:
     public Boolean getBool(){

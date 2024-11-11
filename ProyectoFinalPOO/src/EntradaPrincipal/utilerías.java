@@ -2,7 +2,6 @@ package EntradaPrincipal;
 
 import javax.swing.*;
 import java.awt.*;
-//import javax.swing.*;
 import java.io.*;
 public class utilerías {
     public static JPanel CrearPanel(int colorRojo,int colorGreen, int colorAzul){
@@ -65,6 +64,11 @@ public class utilerías {
         JFrame frame=new JFrame("Registro");
         frame.setSize(x,y);
         return frame;
+    }
+    public static JLabel Gif(String ruta){
+        ImageIcon Gif=new ImageIcon(ruta);
+        JLabel gifLabel=new JLabel(Gif);
+        return gifLabel;
     }
 }
 

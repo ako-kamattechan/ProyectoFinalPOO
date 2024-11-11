@@ -5,7 +5,7 @@ import java.awt.event.ActionListener;
 import javax.swing.*;
 import Usuarios.*;
 import java.util.List;
-
+import Ruleta.RuletaGUI;
 public class MenuDelCasinoGUI{
     final private Font mainFont=new Font("Garamond", Font.ITALIC,50);
     final private Font FontChico=new Font("Garamond", Font.ITALIC,35);
@@ -72,7 +72,8 @@ public class MenuDelCasinoGUI{
         FramePrincipal.setVisible(true);
 
     }
-    public void EjecuciónConInicioDeSesión(usuario usuarioActual){
+    public void EjecuciónConInicioDeSesión(usuario usuarioActual,  MenuDelCasinoGUI menu,List<usuario> listaDeusuarios){
+        JFrame FramePrincipal=FramePrincipal();
         JPanel mainPanel=utilerías.CrearPanel(231, 227, 210);
         JPanel PanelBienvenida=utilerías.CrearPanel(255, 255, 255);
         JPanel PanelPregunta=utilerías.CrearPanel(255, 251, 217,10,10,10,10);
@@ -81,12 +82,9 @@ public class MenuDelCasinoGUI{
         JLabel LBlogo=utilerías.AgregarImagen(300, 200, 30, 0, "ProyectoFinalPOO/src/tipografias/Logo3.jpg");
         JLabel Bienvenida=new JLabel("Bienvenido al casino CasaPuesta.POO");
         JLabel SeleccionDeJuegos=new JLabel("Seleccione un juego:");
+        JLabel Usuario=new JLabel("Usuario: "+usuarioActual.getnombre());
+        JLabel DineroAcumulado=new JLabel("Dinero actual: "+usuarioActual.getDinero());
 
-        /*JButton BotonSi=utilerías.CrearBotones("si", fontBotones);
-       // BotonSi=BotonesMenu.BotonDeIniciarSesión(fontBotones, FontChico, listaDeusuarios,usuarioActual);
-        
-        JButton BotonNo=utilerías.CrearBotones("No", fontBotones);*/
-        //BotonNo=BotonesMenu.BotonDeQueNoEstáRegistrado(fontBotones, FontChico, listaDeusuarios);
             JPanel PanelJuegos=utilerías.CrearPanel(105, 163, 255);
             JButton BotonBlack=utilerías.CrearBotones("Black Jack", FontChico);
             BotonBlack.addActionListener(new ActionListener() {
@@ -99,8 +97,12 @@ public class MenuDelCasinoGUI{
             BotonRuleta.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
-                }
+                    RuletaGUI.PuntoDeAccesoRuleta(usuarioActual,menu,listaDeusuarios);
+                    FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                    FramePrincipal.dispose();
+                    utileriasParaAgregarObjetos.ArchivoConUsuarios(listaDeusuarios);
+   
+                 }
             });
             JButton BotonTragamonedas=utilerías.CrearBotones("Jugar a la tragaMonedas", FontChico);
             BotonTragamonedas.addActionListener(new ActionListener() {
@@ -127,11 +129,15 @@ public class MenuDelCasinoGUI{
         PanelBienvenida.add(LBlogo, BorderLayout.WEST);
         PanelBienvenida.add(Bienvenida,BorderLayout.EAST);
 
-        PanelPregunta.setLayout(new GridLayout(4, 1));
+        PanelPregunta.setLayout(new GridLayout(2, 1));
+        PanelPregunta.add(Usuario);
+        PanelPregunta.add(DineroAcumulado);
 
         mainPanel.add(PanelBienvenida,BorderLayout.NORTH);
         mainPanel.add(PanelPregunta,BorderLayout.WEST);
-        FramePrincipal(mainPanel);
+
+        FramePrincipal.add(mainPanel);
+        FramePrincipal.setVisible(true);
     }
 }
 //IMLogo.setImageObserver(LBlogo);--idea para animación de ruleta

@@ -12,6 +12,7 @@ public class entrada {
         ListaUsuarios=utileriasParaAgregarObjetos.PasarDatosALista(ListaUsuarios);
         MenuDelCasinoGUI menu=new MenuDelCasinoGUI();
         menu.EjecuciónMenuDeInicioSinIniciarSesión(ListaUsuarios,menu);
-        //utileriasParaAgregarObjetos.ArchivoConUsuarios(ListaUsuarios);
+        //IMPORTANTE: LA INSTRUCCIÓN DE ABAJO SI SE QUITA EN CUALQUIER CASO EN EL QUE SE ACTUALICE LA LISTA, VA A DESERIALIZAR EL ARCHIVO Y POR ENDE EL PROGRAMA NO FUNCIONARÁ CORRECTAMENTE.
+        utileriasParaAgregarObjetos.ArchivoConUsuarios(ListaUsuarios);
     }
 }
