@@ -6,6 +6,7 @@ import javax.swing.*;
 import Usuarios.*;
 import java.util.List;
 import Ruleta.RuletaGUI;
+import RuletaApuestas.RuletaApuestaGUI;
 public class MenuDelCasinoGUI{
     final private Font mainFont=new Font("Garamond", Font.ITALIC,50);
     final private Font FontChico=new Font("Garamond", Font.ITALIC,35);
@@ -93,7 +94,18 @@ public class MenuDelCasinoGUI{
                     
                 }
             });
-            JButton BotonRuleta=utilerías.CrearBotones("Girar la Ruleta", FontChico);
+
+            JButton BotonApuesta=utilerías.CrearBotones("Apueste con la Ruleta", FontChico);
+            BotonApuesta.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    RuletaApuestaGUI.RuletaApuestasGUI(usuarioActual, menu, listaDeusuarios);
+                    FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                    FramePrincipal.dispose();    
+                    utileriasParaAgregarObjetos.ArchivoConUsuarios(listaDeusuarios);
+                 }
+            });
+            JButton BotonRuleta=utilerías.CrearBotones("Gire la ruleta de la suerte!", FontChico);
             BotonRuleta.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
@@ -114,10 +126,11 @@ public class MenuDelCasinoGUI{
             PanelJuegos.add(BotonBlack);
             PanelJuegos.add(BotonRuleta);
             PanelJuegos.add(BotonTragamonedas);
+            PanelJuegos.add(BotonApuesta);
             PanelJuegos.setSize(600, 200);
 
             PanelJuegos.add(SeleccionDeJuegos,BorderLayout.CENTER);
-            PanelJuegos.setLayout(new GridLayout(4,1));
+            PanelJuegos.setLayout(new GridLayout(5,1));
             mainPanel.add(PanelJuegos, BorderLayout.CENTER);
 
         Bienvenida.setFont(mainFont);
@@ -140,4 +153,3 @@ public class MenuDelCasinoGUI{
         FramePrincipal.setVisible(true);
     }
 }
-//IMLogo.setImageObserver(LBlogo);--idea para animación de ruleta
