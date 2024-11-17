@@ -109,9 +109,8 @@ public class MenuDelCasinoGUI{
             BotonRuleta.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    RuletaGUI.PuntoDeAccesoRuleta(usuarioActual,menu,listaDeusuarios);
-                    FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-                    FramePrincipal.dispose();
+                    RuletaGUI.PuntoDeAccesoRuleta(usuarioActual,menu,listaDeusuarios,FramePrincipal);
+                    
                     utileriasParaAgregarObjetos.ArchivoConUsuarios(listaDeusuarios);
    
                  }

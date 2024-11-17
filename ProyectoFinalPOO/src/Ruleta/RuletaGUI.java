@@ -8,25 +8,21 @@ import java.util.Random;
 import Usuarios.*;
 import EntradaPrincipal.*;
 public class RuletaGUI {
-    public static void PuntoDeAccesoRuleta(usuario usuarioActual, MenuDelCasinoGUI menu,List<usuario> listaDeusuarios){
+    public static void PuntoDeAccesoRuleta(usuario usuarioActual, MenuDelCasinoGUI menu,List<usuario> listaDeusuarios, JFrame FramePrincipal){
         Font mainFont=new Font("Garamond", Font.ITALIC,50);
-        Font FontPremio=new Font("Garamond", Font.ITALIC,75);
-
-
-        JFrame frameRuleta=utilerías.CrearFrameGenerico("Ruleta", 1000, 300);
+        //Font FontPremio=new Font("Garamond", Font.ITALIC,75);
+        JFrame frameRuleta=utilerías.CrearFrameGenerico("Ruleta", 600, 300);
         JPanel PantallaRuleta=utilerías.CrearPanel(136, 0, 21);
         JButton IniciarRuleta=utilerías.CrearBotones("Gira la ruleta!", mainFont);
-        JLabel ImagenRuleta=utilerías.AgregarImagen(300, 300, 600, 100, "ProyectoFinalPOO/src/tipografias/Ruleta.gif");
+        JLabel ImagenRuleta=utilerías.AgregarImagen(1000, 800, 600, 100, "ProyectoFinalPOO/src/tipografias/RuletadeLasuerte.gif");
         Double[] premios={100d,200d,300d,400d,500d,600d,700d,800d,900d,1000d};
         int[] premio={Aleatorio(10)};
         JLabel MensajeDePremio=new JLabel("¡FELICIDADES! Ganaste "+premios[premio[0]]+" pesos :D");
-        MensajeDePremio.setFont(FontPremio);
+        MensajeDePremio.setFont(mainFont);
         IniciarRuleta.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                frameRuleta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-                frameRuleta.dispose();
-                JFrame RuletaGirando=utilerías.CrearFrameGenerico("Ruleta", 400, 500);
+                JFrame RuletaGirando=utilerías.CrearFrameGenerico("Ruleta", 1000, 800);
                 JPanel panel=utilerías.CrearPanel(136, 0, 21);
                 panel.add(ImagenRuleta,BorderLayout.CENTER);
                 RuletaGirando.add(panel,BorderLayout.CENTER);
@@ -35,18 +31,20 @@ public class RuletaGUI {
                 Timer temporizadorDeDossegundos=new Timer(3000,new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e){
-                        RuletaGirando.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-                                RuletaGirando.dispose();
-                        JFrame Mensaje=utilerías.CrearFrameGenerico("Mensaje de Premio", 1200, 500);
+                        frameRuleta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                        frameRuleta.dispose();
+                        panel.setVisible(false);
                         JPanel PanelMensaje=utilerías.CrearPanel(191, 165, 123);
                         PanelMensaje.add(MensajeDePremio);
-                        Mensaje.add(PanelMensaje);
-                        Mensaje.setVisible(true);
+                        RuletaGirando.add(PanelMensaje);
+                        RuletaGirando.setVisible(true);
                         Timer temporizador=new Timer(3000,new ActionListener() {
                             @Override
                             public void actionPerformed(ActionEvent e){
-                                Mensaje.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
-                                Mensaje.dispose();
+                                RuletaGirando.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                                RuletaGirando.dispose();
+                                FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                                FramePrincipal.dispose();
                                 menu.EjecuciónConInicioDeSesión(usuarioActual, menu, listaDeusuarios);
                             }
                         } );
@@ -69,11 +67,14 @@ public class RuletaGUI {
             public void actionPerformed(ActionEvent e) {
             frameRuleta.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
             frameRuleta.dispose();
+            FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+            FramePrincipal.dispose();
             menu.EjecuciónConInicioDeSesión(usuarioActual,menu,listaDeusuarios);
             }
         });
-        PantallaRuleta.add(Salida,BorderLayout.SOUTH);
+        PantallaRuleta.setLayout(new GridLayout(2,1));
         PantallaRuleta.add(IniciarRuleta,BorderLayout.NORTH);
+        PantallaRuleta.add(Salida,BorderLayout.SOUTH);
         frameRuleta.add(PantallaRuleta,BorderLayout.CENTER);
         frameRuleta.setVisible(true);
     }
