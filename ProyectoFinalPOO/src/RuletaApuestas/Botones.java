@@ -9,7 +9,7 @@ import Usuarios.usuario;
 import java.util.List;
 import Usuarios.utileriasParaAgregarObjetos;
 public class Botones {
-    public static JButton BotónParaIngresarApuestas(Font mainFont,usuario usuarioActual){
+    public static JButton BotónParaIngresarApuestas(Font mainFont,usuario usuarioActual,List<usuario> listaDeusuarios){
         Font nuevo=new Font("Garamond", Font.ITALIC,40);
         JButton IniciarRuleta=utilerías.CrearBotones("Seleccione un número para apostar y color", mainFont);
         IniciarRuleta.addActionListener(new ActionListener() {
@@ -34,7 +34,7 @@ public class Botones {
                 panelParaingresarApuestas.add(FieldCOLOR);
                 panelParaingresarApuestas.add(IngresoDeApuestas);
                 panelParaingresarApuestas.add(FieldApuesta);
-                JButton IngresarApuesta=BotónParaIngresarValoresDeApuesta(FieldNUMERO,FieldCOLOR, FieldApuesta,mainFont,exito,frameParaIngresarApuestas,panelParaingresarApuestas,usuarioActual);
+                JButton IngresarApuesta=BotónParaIngresarValoresDeApuesta(FieldNUMERO,FieldCOLOR, FieldApuesta,mainFont,exito,frameParaIngresarApuestas,panelParaingresarApuestas,usuarioActual,listaDeusuarios);
                 panelParaingresarApuestas.add(IngresarApuesta);
                 panelParaingresarApuestas.add(exito);
                 frameParaIngresarApuestas.add(panelParaingresarApuestas);
@@ -43,7 +43,7 @@ public class Botones {
         });
         return IniciarRuleta;
     }
-    public static JButton BotónParaIngresarValoresDeApuesta(JTextField FieldNUMERO,JTextField FieldCOLOR, JTextField FieldApuesta,Font mainFont,JLabel exito,JFrame frameParaIngresarApuestas, JPanel panelParaingresarApuestas,usuario usuarioActual){
+    public static JButton BotónParaIngresarValoresDeApuesta(JTextField FieldNUMERO,JTextField FieldCOLOR, JTextField FieldApuesta,Font mainFont,JLabel exito,JFrame frameParaIngresarApuestas, JPanel panelParaingresarApuestas,usuario usuarioActual,List<usuario> listaDeusuarios){
         JButton IngresarApuesta=utilerías.CrearBotones("Enviar apuesta", mainFont);
                 IngresarApuesta.addActionListener(new ActionListener() {
                     @Override
@@ -53,14 +53,61 @@ public class Botones {
                             Timer temporizadorDeDossegundos=new Timer(2000,new ActionListener() {
                                 @Override
                                 public void actionPerformed(ActionEvent e){
-                                    panelParaingresarApuestas.setVisible(false);
-                                    JPanel panelaux=utilerías.CrearPanel(201, 90, 181);
-                                    frameParaIngresarApuestas.add(panelaux);
-                                    JLabel SeleccionDeNumeros=new JLabel();
-                                    panelaux.add(SeleccionDeNumeros);
-                                    Integer numerosNegros[]={2,4,6,8,11,10,15,17,20,22,24,26,29,28,31,33,35};
-                                    
-                                    panelaux.setVisible(true);
+                                    //panelParaingresarApuestas.setVisible(false);
+                                    frameParaIngresarApuestas.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                                    frameParaIngresarApuestas.dispose();
+                                    JFrame frame=utilerías.CrearFrameGenerico("Imagen", 1000, 800);
+                                    JLabel img=utilerías.AgregarImagen(1000, 800, 600, 100, "ProyectoFinalPOO/src/tipografias/Ruleta.gif");
+                                    JPanel panelimagen=utilerías.CrearPanel(83, 140, 207);
+                                    panelimagen.add(img);
+                                    frame.add(panelimagen);
+                                    frame.setVisible(true);
+                                    //Integer numerosNegros[]={2,4,6,8,11,10,15,17,20,22,24,26,29,28,31,33,35};
+                                    Timer temporizadorDeDossegundos=new Timer(3000,new ActionListener() {
+                                        @Override
+                                        public void actionPerformed(ActionEvent e){
+                                            frame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                                            frame.dispose();
+                                            JFrame frameaux=utilerías.CrearFrameGenerico("ResultadosApuestas", 500, 650);
+                                            JPanel panelimagen=utilerías.CrearPanel(83, 140, 207);
+                                            JLabel Mensaje=new JLabel();
+                                            Integer NUmero=Integer.parseInt(FieldNUMERO.getText());
+                                            Double dinero=Double.parseDouble(FieldApuesta.getText());
+                                            usuarioActual.QuitarDinero(dinero);
+                                            utileriasParaAgregarObjetos.ArchivoConUsuarios(listaDeusuarios);
+                                            int Resultado=ResultadoRuleta();
+                                            JLabel resultado=new JLabel("El resultado de girar la ruleta fue:"+Resultado);
+                                            if(NUmero==Resultado){
+                                                Mensaje.setText("Ganaste "+(35*dinero+dinero));
+                                                Mensaje.setFont(mainFont);
+                                                Double total=(35*dinero)+dinero;
+                                                usuarioActual.AgregarDinero(total);
+                                                utileriasParaAgregarObjetos.ArchivoConUsuarios(listaDeusuarios);
+                                                //ganador
+                                            }else{
+                                                //perdedor
+                                                Mensaje.setText("Perdiste:(");
+                                                Mensaje.setFont(mainFont);
+                                
+                                            }
+                                            panelimagen.setLayout(new GridLayout(2,1));
+                                            panelimagen.add(resultado);
+                                            panelimagen.add(Mensaje);
+                                            frameaux.add(panelimagen);
+                                            frameaux.setVisible(true);
+                                            Timer temporizadorDeDossegundos=new Timer(3000,new ActionListener() {
+                                                @Override
+                                                public void actionPerformed(ActionEvent e){
+                                                    frameaux.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                                                    frameaux.dispose();
+                                                }
+                                            });
+                                            temporizadorDeDossegundos.setRepeats(false);
+                                            temporizadorDeDossegundos.start();
+                                        }    
+                                    });
+                                        temporizadorDeDossegundos.setRepeats(false);
+                                        temporizadorDeDossegundos.start();
                                 }
                             } );
                             temporizadorDeDossegundos.setRepeats(false);

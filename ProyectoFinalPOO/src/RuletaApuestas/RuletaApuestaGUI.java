@@ -18,7 +18,7 @@ public class RuletaApuestaGUI {
         JPanel PanelBotones=utilerías.CrearPanel(58,77 ,145);
         JLabel ImagenRuleta=utilerías.AgregarImagen(1000, 500, 150, 100, "ProyectoFinalPOO/src/tipografias/tablero.png");
 
-        JButton IniciarRuleta=Botones.BotónParaIngresarApuestas(mainFont,usuarioActual);
+        JButton IniciarRuleta=Botones.BotónParaIngresarApuestas(mainFont,usuarioActual,listaDeusuarios);
         JButton ApuesteRojos=Botones.JugarNegros(mainFont,usuarioActual,listaDeusuarios);
         JButton ApuesteNegros=Botones.JugarRojos(mainFont,usuarioActual,listaDeusuarios);
         JButton Salida=utilerías.CrearBotones("Regresar al menú principal", mainFont);
