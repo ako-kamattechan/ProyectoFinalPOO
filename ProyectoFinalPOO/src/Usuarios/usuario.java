@@ -16,6 +16,9 @@ public class usuario implements Serializable {
     public void AgregarDinero(Double dinero){
         this.Dinero=this.Dinero+dinero;
     }
+    public void QuitarDinero(Double dinero){
+        this.Dinero=this.Dinero-dinero;
+    }
     public String toString(){
         return "usuario:"+nombreDeusuario+"\tcorreo:"+correo+"\tContraseña:"+Contraseña+"\tDinero: "+Dinero+"$";
     }

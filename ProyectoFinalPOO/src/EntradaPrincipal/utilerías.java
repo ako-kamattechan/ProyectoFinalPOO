@@ -61,7 +61,7 @@ public class utilerías {
         frame.setVisible(true);
     }
     public static JFrame CrearFrameGenerico(String nombre,int x, int y){
-        JFrame frame=new JFrame("Registro");
+        JFrame frame=new JFrame(nombre);
         frame.setSize(x,y);
         return frame;
     }

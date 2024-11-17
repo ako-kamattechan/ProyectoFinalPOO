@@ -10,7 +10,6 @@ import EntradaPrincipal.*;
 public class RuletaGUI {
     public static void PuntoDeAccesoRuleta(usuario usuarioActual, MenuDelCasinoGUI menu,List<usuario> listaDeusuarios, JFrame FramePrincipal){
         Font mainFont=new Font("Garamond", Font.ITALIC,50);
-        //Font FontPremio=new Font("Garamond", Font.ITALIC,75);
         JFrame frameRuleta=utilerías.CrearFrameGenerico("Ruleta", 600, 300);
         JPanel PantallaRuleta=utilerías.CrearPanel(136, 0, 21);
         JButton IniciarRuleta=utilerías.CrearBotones("Gira la ruleta!", mainFont);
@@ -81,6 +80,11 @@ public class RuletaGUI {
         public static int Aleatorio(int maximo){
             Random random=new Random();
             int numero=random.nextInt(maximo);
+            return numero;
+        }
+        public static int Aleatorio(int minimo,int maximo){
+            Random random=new Random();
+            int numero=random.nextInt(minimo,maximo);
             return numero;
         }
 }
