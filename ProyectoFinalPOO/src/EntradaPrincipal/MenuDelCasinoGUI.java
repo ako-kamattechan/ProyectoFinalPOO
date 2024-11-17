@@ -7,6 +7,7 @@ import Usuarios.*;
 import java.util.List;
 import Ruleta.RuletaGUI;
 import RuletaApuestas.RuletaApuestaGUI;
+import TragaMonedas.*;
 public class MenuDelCasinoGUI{
     final private Font mainFont=new Font("Garamond", Font.ITALIC,50);
     final private Font FontChico=new Font("Garamond", Font.ITALIC,35);
@@ -119,7 +120,7 @@ public class MenuDelCasinoGUI{
             BotonTragamonedas.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
+                    interfaz.ventana(usuarioActual, menu, listaDeusuarios,FramePrincipal);   
                 }
             });
             PanelJuegos.add(BotonBlack);
