@@ -1,13 +1,7 @@
 package blackjack;
-/*
-Cards: 1-11
-- no doubles
-- share the same deck
- */
+
 import java.security.SecureRandom;
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Scanner;
 
 public final class BJ21 {
     private final static LinkedList<Integer> deck = new LinkedList<>();
@@ -15,67 +9,80 @@ public final class BJ21 {
     private final static LinkedList<Integer> handPlayer = new LinkedList<>();
     private final static SecureRandom randCards = new SecureRandom();
 
+    public static LinkedList<Integer> getHandPlayer() {
+        return handPlayer;
+    }
+
+    public static LinkedList<Integer> getHandCrupier() {
+        return handCrupier;
+    }
+
     private BJ21() {}
 
-    public static double b21(double bet){
-        boolean continueGame = true;
+    public static double b21(double bet) {
+        if(BlackjackGUI.frame != null)
+            BlackjackGUI.frame.dispose();
+
+        BlackjackGUI.startGUI();
 
         restartDecks();
         initialHand();
-        //printHands();
 
-        while(continueGame){
-            printPlayerView();
+        boolean continueGame = true;
+
+        while (continueGame) {
+            BlackjackGUI.updateView(handCrupier, handPlayer);
             continueGame = playerTurn();
             continueGame = (crupierTurn() || continueGame);
         }
 
-        System.out.println();
-        printHands();
-        System.out.println();
+        double winnings = decideVictory(bet);
 
-        return decideVictory(bet);
+        return BlackjackGUI.displayResultAndGetNewBet(listSum(handPlayer), listSum(handCrupier), winnings);
     }
-
-    private static double decideVictory(double bet){
-        if(listSum(handPlayer)==listSum(handCrupier)) {
-            System.out.println("Draw");
-            return bet;
-        }else if(listSum(handPlayer)<22 && listSum(handCrupier)>21){
-            System.out.println("Win");
-            return bet*2;
-        }else if(listSum(handPlayer)>21 && listSum(handCrupier)<22){
-            System.out.println("Lose");
-            return 0;
-        }else if(listSum(handPlayer)>21 && listSum(handCrupier)>21){
-            if(Math.min(listSum(handCrupier),listSum(handPlayer)) == listSum(handPlayer)){
-                System.out.println("Win");
-                return bet*2;
-            }else{
-                System.out.println("Lose");
-                return 0;
-            }
-        }else{
-            if(Math.max(listSum(handCrupier),listSum(handPlayer)) == listSum(handPlayer)){
-                System.out.println("Win");
-                return bet*2;
-            }else{
-                System.out.println("Lose");
-                return 0;
-            }
-        }
-    }
-
-
-    private static boolean playerTurn(){
-        Scanner sc = new Scanner(System.in);
-
-        if(sc.nextInt()==1)
+    private static boolean playerTurn() {
+        if (BlackjackGUI.getPlayerChoice()){
             handPlayer.add(getRandomCard());
-        else
-            return false;
+            return true;
+        }
 
-        return true;
+        return false;
+    }
+
+    private static double decideVictory(double bet) {
+        BlackjackGUI.revealAllCards(handCrupier, handPlayer);
+
+        String resultMessage;
+        double result;
+        if (listSum(handPlayer) == listSum(handCrupier)) {
+            resultMessage = "Empate";
+            result = bet;
+        } else if (listSum(handPlayer) < 22 && listSum(handCrupier) > 21) {
+            resultMessage = "Victoria";
+            result = bet * 2;
+        } else if (listSum(handPlayer) > 21 && listSum(handCrupier) < 22) {
+            resultMessage = "Perdiste";
+            result = 0;
+        } else if (listSum(handPlayer) > 21 && listSum(handCrupier) > 21) {
+            if (Math.min(listSum(handCrupier), listSum(handPlayer)) == listSum(handPlayer)) {
+                resultMessage = "Victoria";
+                result = bet * 2;
+            } else {
+                resultMessage = "Perdiste";
+                result = 0;
+            }
+        } else {
+            if (Math.max(listSum(handCrupier), listSum(handPlayer)) == listSum(handPlayer)) {
+                resultMessage = "Victoria";
+                result = bet * 2;
+            } else {
+                resultMessage = "Perdiste";
+                result = 0;
+            }
+
+        }
+
+        return result;
     }
 
 

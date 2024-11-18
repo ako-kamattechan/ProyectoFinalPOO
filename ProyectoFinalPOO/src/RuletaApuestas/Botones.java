@@ -160,8 +160,10 @@ public class Botones {
                             Double Dinero=Double.parseDouble(TFDinero.getText());
                             JPanel panelResultados=utilerías.CrearPanel(83, 140, 207);
                             int Resultado=ResultadoRuleta();
+
                             usuarioactual.QuitarDinero(Dinero);
                             utileriasParaAgregarObjetos.ArchivoConUsuarios(listaDeusuarios);
+                            
                             JLabel resultado=new JLabel("El resultado de girar la ruleta fue:"+Resultado);
                             resultado.setFont(maiFont);
                             panelResultados.setLayout(new GridLayout(3,1));

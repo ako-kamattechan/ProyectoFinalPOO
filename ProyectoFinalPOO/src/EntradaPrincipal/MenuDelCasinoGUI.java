@@ -2,8 +2,14 @@ package EntradaPrincipal;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+
 import javax.swing.*;
 import Usuarios.*;
+
 import java.util.List;
 import Ruleta.RuletaGUI;
 import RuletaApuestas.RuletaApuestaGUI;
@@ -92,9 +98,45 @@ public class MenuDelCasinoGUI{
             BotonBlack.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent e) {
-                    
-                }
+                    FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE); 
+                    FramePrincipal.dispose();  
+
+                 }
             });
+            BotonBlack.addActionListener(e -> {
+                String scriptPath = "C:\\Users\\AlanV\\Documents\\Documentos Alan\\Escuela\\Tercer semestre\\poo\\ProyectoPoo2\\ProyectoFinalPOO\\run.bat";
+
+                try {
+                    Process process = new ProcessBuilder("cmd.exe", "/c", scriptPath).start();
+
+                    int exitCode = process.waitFor();
+                    System.out.println("Script exited with code: " + exitCode);
+                } catch (IOException | InterruptedException ewe) {
+                    ewe.printStackTrace();
+                }
+
+                Double number = 0.0;
+
+                try (FileInputStream fileIn = new FileInputStream("C:\\Users\\AlanV\\Documents\\Documentos Alan\\Escuela\\Tercer semestre\\poo\\ProyectoPoo2\\ProyectoFinalPOO\\src\\blackjack\\winnings.ser");
+                     ObjectInputStream objectIn = new ObjectInputStream(fileIn)) {
+                    number = (Double) objectIn.readObject();
+                } catch (IOException | ClassNotFoundException ewe) {
+                    ewe.printStackTrace();
+                }
+
+                usuarioActual.AgregarDinero(number);
+
+                File file = new File("C:\\Users\\AlanV\\Documents\\Documentos Alan\\Escuela\\Tercer semestre\\poo\\ProyectoPoo2\\ProyectoFinalPOO\\src\\blackjack\\winnings.ser");
+                file.delete();
+
+                FramePrincipal.revalidate();
+                FramePrincipal.repaint();
+                menu.EjecuciónConInicioDeSesión(usuarioActual,menu,listaDeusuarios);
+                FramePrincipal.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+                FramePrincipal.dispose();
+                utileriasParaAgregarObjetos.ArchivoConUsuarios(listaDeusuarios);
+            });
+
 
             JButton BotonApuesta=utilerías.CrearBotones("Apueste con la Ruleta", FontChico);
             BotonApuesta.addActionListener(new ActionListener() {
